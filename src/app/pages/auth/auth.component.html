@@ -1,0 +1,60 @@
+<div class="body">
+  <div class="main">
+    <div class="container">
+
+      <div class="signup-content">
+        <div class="signup-desc">
+            <div class="signup-desc-content">
+                <h2><span>Cash</span>Management</h2>
+                <p class="title">Entrar para acessar sua carteira de investimentos</p>
+                <p class="desc">
+                  Tudo que voce precisa em um só lugar
+                </p>
+                <img src="./../assets/signup-img.jpg" alt="" class="signup-img">
+            </div>
+        </div>
+        <div class="signup-form-conent">
+          <div id="signup-form" class="signup-form">
+            <div class="form-group">
+              <div *ngIf="step.index === 0" class="content" [@routerAnimation]="outletAnimation">
+                <mat-form-field appearance="fill" style="min-width: 100%">
+                  <mat-label>
+                    <p>Informe seu email</p>
+                  </mat-label>
+                  <input type="text" matInput [formControl]="emailCtrl">
+                  <mat-error *ngIf="emailCtrl && emailCtrl.hasError('msgError')">
+                    {{ emailCtrl.getError('msgError') }}
+                </mat-error>
+                </mat-form-field>
+                <mat-hint>Usar este email: emr@teste.com</mat-hint>
+              </div>
+              <div *ngIf="step.index === 1" class="content" [@routerAnimation]="outletAnimation">
+                <mat-form-field appearance="fill" style="min-width: 100%">
+                  <mat-label>
+                    <p>Informe sua senha</p>
+                  </mat-label>
+                  <input matInput type="password" [formControl]="passCtrl">
+                  <mat-error *ngIf="passCtrl && passCtrl.hasError('msgError')">
+                    {{ passCtrl.getError('msgError') }}
+                  </mat-error>
+                </mat-form-field>
+                <mat-hint>Usar esta senha: 123456</mat-hint>
+              </div>
+              <div class="actions clearfix">
+                <ul>
+                  <li *ngIf="step.index === 0">
+                    <button [disabled]="emailCtrl.invalid" (click)="step.index = 1" mat-raised-button color="primary">Próximo</button>
+                  </li>
+                  <li *ngIf="step.index === 1">
+                    <button mat-raised-button color="primary" style="margin-right: 10px;" (click)="step.index = 0">Voltar</button>
+                    <button [disabled]="passCtrl.invalid" mat-raised-button color="primary" (click)="login()">Entrar</button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,80 @@
+<div class="body">
+  <div class="main">
+    <div class="container">
+      <div class="signup-content">
+        <div class="signup-desc">
+            <div class="signup-desc-content">
+                <h2><span>Olá</span> {{ loggedUser?.bestName }}</h2>
+
+                <p class="title">Caixa</p>
+                <p class="desc">
+                  R$ {{ loggedUser?.client?.cash?.value }}
+                </p>
+
+                <mat-tab-group mat-align-tabs="start">
+                  <mat-tab label="Fluxo de caixa">
+                    <p style="padding-top: 3rem;" class="title">Fluxo de caixa</p>
+
+                    <div class="border-container">
+                      <div class="content-border">
+                        <mat-list>
+                          <div mat-subheader>Operações</div>
+                          <mat-list-item matRipple *ngFor="let flow of loggedUser?.client?.cashFlow">
+                            <mat-icon  [ngStyle]="{ 'color': flow.operation == 'INFLOW' ? 'green' : 'red' }" mat-list-icon>attach_money</mat-icon>
+                            <div mat-line><p>{{ flow.operation == 'INFLOW' ? 'DEPÓSITO' : 'SAQUE'}}</p></div>
+                            <div mat-line><p>Valor: {{ flow.value }}</p></div>
+                          </mat-list-item>
+                        </mat-list>
+                      </div>
+                    </div>
+                  </mat-tab>
+                  <mat-tab label="Ativos">
+
+                  </mat-tab>
+                </mat-tab-group>
+
+            </div>
+        </div>
+        <div class="signup-form-conent">
+          <div id="signup-form" class="signup-form">
+            <div class="form-group">
+              <div class="content" [@routerAnimation]="outletAnimation">
+                <mat-form-field  appearance="fill" style="min-width: 100%">
+                  <mat-label>{{ 'Operação' }}</mat-label>
+                    <mat-select #select [formControl]="operationCtrl" [multiple]="false">
+
+                        <mat-option [value]="''">
+                          <p>{{ 'Selecione uma operação' }}</p>
+                        </mat-option>
+                        <mat-option [value]="item.key" *ngFor="let item of operations"
+                            selected="true">
+                                {{ item.value }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="operationCtrl && operationCtrl.hasError('msgError')">{{ operationCtrl.getError("msgError") }}</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" style="min-width: 100%">
+                  <mat-label>
+                    <p>Valor</p>
+                  </mat-label>
+                  <input type="number" matInput [formControl]="valueCtrl">
+                  <mat-error *ngIf="valueCtrl && valueCtrl.hasError('msgError')">
+                    {{ valueCtrl.getError('msgError') }}
+                </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="actions clearfix">
+                <ul>
+                  <li>
+                  <button [disabled]="valueCtrl.invalid || operationCtrl.invalid" (click)="submitOperation()" mat-raised-button color="primary">Realizar operação</button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
