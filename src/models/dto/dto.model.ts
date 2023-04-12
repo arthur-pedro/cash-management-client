@@ -24,6 +24,22 @@ export interface ClientDTO {
   cashFlow: CashFlowDTO[]
 
   cash: CashDTO
+
+  goals: Goal[]
+}
+
+export interface Goal {
+  name: string;
+
+  assets: Asset[]
+}
+
+export interface Asset {
+  name: string;
+  
+  description: string;
+  
+  price: number;
 }
 
 export interface CashDTO {

@@ -29,7 +29,23 @@
                     </div>
                   </mat-tab>
                   <mat-tab label="Ativos">
+                    <p style="padding-top: 3rem;" class="title">Portfólio</p>
 
+                    <div class="border-container">
+                      <div class="content-border">
+                          <div mat-subheader>Meus ativos</div>
+                          <div *ngFor="let goal of loggedUser?.client?.goals">
+                            <mat-list>
+                              <mat-list-item matRipple *ngFor="let asset of goal.assets">
+                                <div mat-line><p>{{ asset.name }} - R$ {{ asset.price }} </p></div>
+                                <div mat-line><p>{{ asset.description }}</p></div>
+                              </mat-list-item>
+                            </mat-list>
+                           
+                            <mat-divider></mat-divider>
+                          </div>
+                      </div>
+                    </div>
                   </mat-tab>
                 </mat-tab-group>
 
